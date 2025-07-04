@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Tarjeta Viento</title>
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f9f6f4;
+        color: #1a1743;
+        padding: 20px;
+        margin: 0;
+      }
+      .container {
+        border-radius: 20px;
+        background: #f9f6f4;
+        padding: 30px;
+        text-align: center;
+        max-width: 500px;
+        margin: auto;
+      }
+      .header {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .big {
+        font-size: 3rem;
+        font-weight: 800;
+        margin: 10px;
+      }
+      .label {
+        font-size: 1rem;
+        margin-top: 10px;
+      }
+      .inline {
+        display: inline-block;
+        width: 45%;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header"><span id="color"></span> <span id="hora"></span> hs</div>
+      <div>
+        <div class="inline big" id="direccion"></div>
+        <div class="inline big" id="intensidad"></div>
+      </div>
+      <div>
+        <div class="inline label">Dirección del viento</div>
+        <div class="inline label">Intensidad del viento</div>
+      </div>
+    </div>
+
+    <script>
+      fetch("https://opensheet.elk.sh/1w9acMtdXl7IFFAZpyRxOFgS4sRwftw4TXngQdgez6wk/Hoja1")
+        .then(response => response.json())
+        .then(data => {
+          const fila = data[0]; // primera fila
+          document.getElementById("color").innerText = fila.Color || "Azul";
+          document.getElementById("hora").innerText = fila.Hora || "17:00";
+          document.getElementById("direccion").innerText = fila.Direccion || "NE";
+          document.getElementById("intensidad").innerText = fila.Intensidad + " km/h" || "17 km/h";
+        })
+        .catch(err => console.error("Error al cargar los datos:", err));
+    </script>
+  </body>
+</html>
