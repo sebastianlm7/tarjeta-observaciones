@@ -92,19 +92,13 @@
             contenedor.innerHTML = ""; // Limpiar tarjetas previas
 
             data.forEach(ciudadData => {
-  // Reemplazo de nombre
-  if (ciudadData["Ciudad"] === "Mar del Plata") {
-    ciudadData["Ciudad"] = "Miramar";
-  }
-
-  // Si hay calma, poner velocidad 0
-  if (ciudadData["Dirección viento"]?.toLowerCase() === "calma") {
-    ciudadData["Velocidad (km/h)"] = "0";
-  }
-
-  const tarjeta = crearTarjeta(ciudadData);
-  contenedor.appendChild(tarjeta);
-});
+            const tarjeta = crearTarjeta(ciudadData);
+              contenedor.appendChild(tarjeta);
+            });
+          })
+          .catch(err => {
+            console.error("Error al actualizar datos:", err);
+          });
 
       }
 
